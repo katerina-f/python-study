@@ -1,5 +1,6 @@
 
 import asyncio
+import time
 
 
 def run_server(host, port):
@@ -21,13 +22,12 @@ def run_server(host, port):
     loop.run_until_complete(server.wait_closed())
     loop.close()
 
+data_dict = {}
 
 class WrongCommand(Exception):
     pass
 
 class ClientServerProtocol(asyncio.Protocol):
-    def __init__(self):
-        self.data_dict = {}
 
     def connection_made(self, transport):
         self.transport = transport
@@ -59,14 +59,14 @@ class ClientServerProtocol(asyncio.Protocol):
     def get(self, payload):
         data = "ok\n"
 
-        for key in self.data_dict:
+        for key in data_dict:
             if key == payload:
-                for metric_value in self.data_dict[key]:
-                    data += f"{payload} {metric_value[0]} {metric_value[1]}\n"
+                for metric_value in data_dict[key]:
+                    data += f"{payload} {metric_value[1]} {metric_value[0]}\n"
 
             if payload == "*":
-                for metric_value in self.data_dict[key]:
-                    data += f"{key} {metric_value[0]} {metric_value[1]}\n"
+                for metric_value in data_dict[key]:
+                    data += f"{key} {metric_value[1]} {metric_value[0]}\n"
 
             else:
                 data
@@ -75,13 +75,14 @@ class ClientServerProtocol(asyncio.Protocol):
 
     def put(self, payload):
         metric, metric_values = payload.split(" ", 1)
-        metric_values = metric_values.split(' ')
-        metric_values = metric_values[0], metric_values[1]
-        if metric not in self.data_dict:
-            self.data_dict[metric] = []
-            self.data_dict[metric].append(metric_values)
-        else:
-            self.data_dict[metric].append(metric_values)
-        return self.data_dict
+        metric_value, timestamp = metric_values.split(' ', 1)
+        metric_values_for_client = timestamp, metric_value
+        if metric not in data_dict:
+            data_dict[metric] = [metric_values_for_client]
+        elif metric in data_dict:
+            if metric_values_for_client == data_dict
+
+
+        return data_dict
 
 run_server("127.0.0.1", 8888)
