@@ -1,6 +1,7 @@
 
 import asyncio
 
+
 def run_server(host, port):
 
     loop = asyncio.get_event_loop()
@@ -21,6 +22,9 @@ def run_server(host, port):
     loop.close()
 
 
+class WrongCommand(Exception):
+    pass
+
 class ClientServerProtocol(asyncio.Protocol):
     def __init__(self):
         self.data_dict = {}
@@ -40,20 +44,21 @@ class ClientServerProtocol(asyncio.Protocol):
 
         status, payload = data.split(" ", 1)
         payload = payload.strip()
-        try:
-            if status == "get":
-                data_for_client = self.get(payload)
-                return data_for_client
 
-            if status == "put":
-                self.put(payload)
-                return "ok\n\n"
+        if status == "get":
+            data_for_client = self.get(payload)
+            return data_for_client
 
-        except:
-            return " "
+        if status == "put":
+            self.put(payload)
+            return "ok\n\n"
+        else:
+            raise WrongCommand
+
 
     def get(self, payload):
         data = "ok\n"
+
         for key in self.data_dict:
             if key == payload:
                 for metric_value in self.data_dict[key]:
@@ -77,7 +82,6 @@ class ClientServerProtocol(asyncio.Protocol):
             self.data_dict[metric].append(metric_values)
         else:
             self.data_dict[metric].append(metric_values)
-
         return self.data_dict
 
 run_server("127.0.0.1", 8888)
