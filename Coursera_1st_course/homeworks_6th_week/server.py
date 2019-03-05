@@ -59,14 +59,13 @@ class ClientServerProtocol(asyncio.Protocol):
     def get(self, payload):
         data = "ok\n"
 
-        for key in data_dict:
-            if key == payload:
-                for metric_value in data_dict[key]:
-                    data += f"{payload} {metric_value[1]} {metric_value[0]}\n"
+        if payload == "*":
+            for key in data_dict:
+                data += f"{data_dict[key][0]} {data_dict[key][1]} {key}\n"
 
-            if payload == "*":
-                for metric_value in data_dict[key]:
-                    data += f"{key} {metric_value[1]} {metric_value[0]}\n"
+        for key in data_dict:
+            if data_dict[key][0] == payload:
+                    data += f"{payload} {data_dict[key][1]} {key}\n"
 
             else:
                 data
@@ -74,15 +73,16 @@ class ClientServerProtocol(asyncio.Protocol):
         return data + "\n"
 
     def put(self, payload):
-        metric, metric_values = payload.split(" ", 1)
-        metric_value, timestamp = metric_values.split(' ', 1)
-        metric_values_for_client = timestamp, metric_value
-        if metric not in data_dict:
-            data_dict[metric] = [metric_values_for_client]
-        elif metric in data_dict:
-            if metric_values_for_client == data_dict
+        print(payload)
+        metric, metric_value, timestamp = payload.split()
+        print(metric, metric_value, timestamp)
+        if timestamp not in data_dict:
+            data_dict[timestamp] = [metric, metric_value]
+        else:
+            data_dict[timestamp] = [metric, metric_value]
 
 
+        print(data_dict)
         return data_dict
 
-run_server("127.0.0.1", 8888)
+#un_server("127.0.0.1", 8888)
