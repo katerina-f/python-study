@@ -1,6 +1,5 @@
 
 import asyncio
-import time
 
 
 def run_server(host, port):
@@ -22,10 +21,13 @@ def run_server(host, port):
     loop.run_until_complete(server.wait_closed())
     loop.close()
 
+
 data_dict = {}
+
 
 class WrongCommand(Exception):
     pass
+
 
 class ClientServerProtocol(asyncio.Protocol):
 
@@ -55,7 +57,6 @@ class ClientServerProtocol(asyncio.Protocol):
         else:
             raise WrongCommand
 
-
     def get(self, payload):
         data = "ok\n"
 
@@ -73,16 +74,13 @@ class ClientServerProtocol(asyncio.Protocol):
         return data + "\n"
 
     def put(self, payload):
-        print(payload)
         metric, metric_value, timestamp = payload.split()
-        print(metric, metric_value, timestamp)
+
         if timestamp not in data_dict:
             data_dict[timestamp] = [metric, metric_value]
         else:
             data_dict[timestamp] = [metric, metric_value]
 
-
-        print(data_dict)
         return data_dict
 
-#un_server("127.0.0.1", 8888)
+# run_server("127.0.0.1", 8888)
