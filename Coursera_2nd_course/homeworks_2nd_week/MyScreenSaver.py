@@ -83,8 +83,8 @@ class Knot(Polyline):
             deg = len(points) - 1
         if deg == 0:
             return points[0]
-        return points[deg] * alpha
-                + self.get_point(points, alpha, deg - 1) * (1 - alpha)
+        return points[deg] * alpha \
+            + self.get_point(points, alpha, deg - 1) * (1 - alpha)
 
     def get_points(self, base_points, count):
         alpha = 1 / self.count
@@ -111,7 +111,7 @@ class Knot(Polyline):
             knots = self.get_knot()
             for p_n in range(-1, len(knots) - 1):
                 pygame.draw.line(gameDisplay, color, knots[p_n].int_pair(),
-                                knots[p_n + 1].int_pair(), width)
+                                    knots[p_n + 1].int_pair(), width)
 
         elif style == "points":
             for p in self.points:
@@ -144,6 +144,14 @@ class Knot(Polyline):
     def delete_point(self, point):
         if self.points != []:
             del self.points[-1]
+
+    def add_point(self, point):
+        super().add_point(point)
+        self.get_knot()
+
+    def set_points(self):
+        super().set_points()
+        self.get_knot()
 
 
 def draw_help():
