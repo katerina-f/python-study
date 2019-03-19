@@ -151,12 +151,4 @@ class Curse(AbstractNegative):
         return self.base.get_negative_effects() + ["Curse"]
 
 
-hero = Hero()
-
-hero = Berserk(hero)
-hero.get_positive_effects()
-hero = Blessing(hero)
-hero.get_positive_effects()
-
-print(hero.get_positive_effects())
-print(hero.get_stats())
+#
