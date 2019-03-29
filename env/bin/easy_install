@@ -1,4 +1,5 @@
-#!/Users/user/Documents/python-study/env/bin/python3.7
+#!/Users/Katerina/Documents/python-study/env/bin/python3
+
 # -*- coding: utf-8 -*-
 import re
 import sys
