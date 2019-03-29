@@ -1,4 +1,12 @@
+import yaml
 
+hero_yaml = '''
+--- !Character
+factory:
+    !factory Warrior
+name:
+    Katya
+'''
 
 class HeroFactory():
     @classmethod
@@ -43,17 +51,31 @@ class WarriorFactory(HeroFactory):
         def cast(self):
             return "Power"
 
-def create_hero(factory):
-    hero = factory.create_hero("Katya")
-    weapon = factory.create_weapon()
-    spell = factory.create_spell()
+def factory_constructor(loader, node):
+    data = loader.constract_sclar(node)
+    if data == "Warrior":
+        return WarriorFactory
+    if data == "":
+        return "hdhjdhjdsh"
+    else:
+        return "oooppp"
+class Character(yaml.YAMLObject):
+    yaml_tag = "!Character"
 
-    hero.add_weapon(weapon)
-    hero.add_spell(spell)
+    def create_hero(self):
+        hero = self.factory.create_hero(self.name)
+        weapon = self.factory.create_weapon()
+        spell = self.factory.create_spell()
 
-    return hero
+        hero.add_weapon(weapon)
+        hero.add_spell(spell)
 
-player = create_hero(WarriorFactory())
+        return hero
 
-player.hit()
-player.cast()
+loader = yaml.Loader
+
+loader.add_constructor("!factory", factory_constructor)
+hero = yaml.load(hero_yaml).create_hero()
+
+hero.hit()
+hero.cast()
