@@ -235,11 +235,10 @@ class EmptyMap(MapFactory):
 
         def __init__(self):
             self.objects = []
-            self.config = {}
 
         def get_objects(self, _map):
             for obj_name in object_list_prob['objects']:
-                if obj_name != 'stairs':
+                if obj_name != "stairs":
                     continue
 
                 prop = object_list_prob['objects'][obj_name]
@@ -287,7 +286,6 @@ class SpecialMap(MapFactory):
 
         def __init__(self):
             self.objects = []
-            self.config = {'rat': 0, 'knight': 0}
 
         def get_objects(self, _map):
 

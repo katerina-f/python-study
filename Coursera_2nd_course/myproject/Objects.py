@@ -15,8 +15,7 @@ def create_sprite(img, sprite_size):
 class AbstractObject(ABC):
     @abstractmethod
     def __init__(self):
-        self.position = (0, 0)
-        self.sprite = pygame.Surface()
+        pass
 
     def draw(self, display):
         display.draw_object(self.sprite, self.position)
@@ -69,7 +68,6 @@ class Hero(Creature):
             self.stats["endurance"] += 2
             self.calc_max_HP()
             self.hp = self.max_hp
-            #yield "level up!"
 
 
 class Enemy(Creature, Interactive):
@@ -85,13 +83,13 @@ class Enemy(Creature, Interactive):
 
         while enemy_hp > 0 and hero.hp > 0:
             hero_hit = hero.stats["strength"] + random.randint(0, 10)
-            enemy_hit = self.stats["strength"] + random.randint(10, 20)
+            enemy_hit = self.stats["strength"]
             if hero_hit > enemy_hit:
                 enemy_hp -= 5
             elif hero_hit == enemy_hit:
                 continue
             else:
-                hero.hp -= 5
+                hero.hp -= 10
 
         n = hero.level
         if hero.hp > 0:
@@ -100,9 +98,10 @@ class Enemy(Creature, Interactive):
             if hero.level > n:
                 engine.notify("Level up!")
         if hero.hp <= 0:
-            hero.hp = 0
-            engine.level = 4
-            Service.reload_game(engine, hero)
+            hero.hp = 20
+            hero.level -= 1
+            hero.exp = 0
+            engine.notify("One level lost!")
 
 
 class Effect(Hero):
@@ -172,33 +171,26 @@ class Effect(Hero):
 class Berserk(Effect):
 
     def apply_effect(self):
-        new_base_stats = self.stats
-
-        new_base_stats["strength"] += 5
-        new_base_stats["endurance"] += 5
-        new_base_stats["intelligence"] -= 2
-        new_base_stats["luck"] += 5
-        return new_base_stats
+        self.stats["strength"] += 5
+        self.stats["endurance"] += 5
+        self.stats["intelligence"] -= 2
+        self.stats["luck"] += 5
+        return self.stats
 
 
 class Blessing(Effect):
 
     def apply_effect(self):
-        new_base_stats = self.stats
-
-        new_base_stats["strength"] += 2
-        new_base_stats["endurance"] += 2
-        new_base_stats["intelligence"] += 2
-        new_base_stats["luck"] += 2
-        return new_base_stats
+        self.stats["strength"] += 2
+        self.stats["endurance"] += 2
+        self.stats["intelligence"] += 2
+        self.stats["luck"] += 2
+        return self.stats
 
 
 class Weakness(Effect):
 
     def apply_effect(self):
-        new_base_stats = self.stats
-
-        new_base_stats["strength"] -= 4
-        new_base_stats["endurance"] -= 4
-        return new_base_stats
-
+        self.stats["strength"] -= 4
+        self.stats["endurance"] -= 4
+        return self.stats
