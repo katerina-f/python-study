@@ -18,7 +18,7 @@ def main():
     while user_input is not 'q':
         user_input = input('Выберите интересующий вас запрос : a - добавить имя в список, p - посмотреть рейтинг. Введите q для выхода.')
         if user_input == "a":
-            add_document(men_list)
+            add_document(men_list, alphabet)
         elif user_input == "p":
             get_sexy_rating(men_list, alphabet)
         elif user_input == "q":
