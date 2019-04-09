@@ -25,6 +25,11 @@ ally:
     action: restore_hp
     min-count: 0
     max-count: 3
+  fairy:
+    sprite: [fairy.png]
+    action: apply_luck
+    min-count: 1
+    max-count: 4
 enemies:
   rat:
     sprite: [rat.png]
@@ -45,6 +50,13 @@ enemies:
     strength: 25
     endurance: 25
     intelligence: 25
+    luck: 10
+    experience: 500
+  demon:
+    sprite: [demon.png]
+    strength: 30
+    endurance: 30
+    intelligence: 30
     luck: 10
     experience: 500
   dragon:

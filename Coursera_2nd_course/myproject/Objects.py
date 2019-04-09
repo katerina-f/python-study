@@ -96,12 +96,16 @@ class Enemy(Creature, Interactive):
             hero.exp += self.stats["experience"]
             hero.level_up()
             if hero.level > n:
-                engine.notify("Level up!")
+                engine.notify(f"Level up! {hero.level}")
         if hero.hp <= 0:
-            hero.hp = 20
+            hero.hp = 0
             hero.level -= 1
             hero.exp = 0
-            engine.notify("One level lost!")
+            engine.notify(f"One level lost! {hero.level}")
+        if hero.level <= 0:
+            engine.notify(f"Game over! You lose!")
+            engine.level = 4
+            Service.reload_game(engine, hero)
 
 
 class Effect(Hero):
@@ -174,7 +178,6 @@ class Berserk(Effect):
         self.stats["strength"] += 5
         self.stats["endurance"] += 5
         self.stats["intelligence"] -= 2
-        self.stats["luck"] += 5
         return self.stats
 
 
@@ -184,13 +187,20 @@ class Blessing(Effect):
         self.stats["strength"] += 2
         self.stats["endurance"] += 2
         self.stats["intelligence"] += 2
-        self.stats["luck"] += 2
         return self.stats
 
 
 class Weakness(Effect):
 
     def apply_effect(self):
-        self.stats["strength"] -= 4
-        self.stats["endurance"] -= 4
+        self.stats["strength"] -= 5
+        self.stats["endurance"] -= 5
+        self.stats["intelligence"] += 2
+        return self.stats
+
+
+class Lucky(Effect):
+
+    def apply_effect(self):
+        self.stats["luck"] += 3
         return self.stats

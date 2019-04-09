@@ -72,6 +72,13 @@ def add_gold(engine, hero):
         engine.notify(f"{gold} gold added")
 
 
+def apply_luck(engine, hero):
+    engine.score -= 0.10
+    luck = hero.stats["luck"]
+    engine.hero = Objects.Lucky(hero)
+    engine.notify(f"{luck} luck added")
+
+
 class MapFactory(yaml.YAMLObject):
 
     @classmethod
@@ -310,16 +317,36 @@ class SpecialMap(MapFactory):
                     self.objects.append(Objects.Ally(
                         prop['sprite'], prop['action'], coord))
 
-            for obj_name in object_list_prob['enemies']:
-                if obj_name != 'rat' and obj_name != 'knight':
+            for obj_name in object_list_prob['ally']:
+                if obj_name != "fairy" and obj_name != "remove":
                     continue
 
-                if obj_name not in self.config:
+                prop = object_list_prob['ally'][obj_name]
+                for i in range(random.randint(prop['min-count'], prop['max-count'])):
+                    coord = (random.randint(1, 19), random.randint(1, 19))
+                    intersect = True
+                    while intersect:
+                        intersect = False
+                        if _map[coord[1]][coord[0]] == wall:
+                            intersect = True
+                            coord = (random.randint(1, 19),
+                                     random.randint(1, 19))
+                            continue
+                        for obj in self.objects:
+                            if coord == obj.position or coord == (1, 1):
+                                intersect = True
+                                coord = (random.randint(1, 19),
+                                         random.randint(1, 19))
+                    self.objects.append(Objects.Ally(
+                        prop['sprite'], prop['action'], coord))
+
+            for obj_name in object_list_prob['enemies']:
+                if obj_name != "knight" and obj_name != "rat":
                     continue
 
                 prop = object_list_prob['enemies'][obj_name]
-                for i in range(self.config[obj_name]):
-                    coord = (random.randint(1, 20), random.randint(1, 20))
+                for i in range(random.randint(0, 5)):
+                    coord = (random.randint(1, 20), random.randint(1, 12))
                     intersect = True
                     while intersect:
                         intersect = False
@@ -338,7 +365,6 @@ class SpecialMap(MapFactory):
                         prop['sprite'], prop, prop['experience'], coord))
 
             return self.objects
-
 wall = [0]
 floor1 = [0]
 floor2 = [0]
@@ -368,7 +394,8 @@ def service_init(sprite_size, full=True):
                            'add_gold': add_gold,
                            'apply_blessing': apply_blessing,
                            'remove_effect': remove_effect,
-                           'restore_hp': restore_hp}
+                           'restore_hp': restore_hp,
+                           'apply_luck': apply_luck}
 
     for obj in object_list_prob['objects']:
         prop = object_list_prob['objects'][obj]

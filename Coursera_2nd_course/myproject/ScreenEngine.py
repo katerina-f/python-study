@@ -93,6 +93,43 @@ class GameSurface(ScreenHandle):
         super().draw(canvas)
 
 
+class MiniMap(ScreenHandle):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.size = 4
+        self.alpha = 198
+        self.colors = {"hero": (255, 0, 0),
+                       "wall": (0, 0, 0, self.alpha),
+                       "ground": (168, 168, 168, self.alpha),
+                       "object": (255, 255, 0)
+                       }
+
+    def canvas_pos(self, args):
+        return args[0] * self.size, args[1] * self.size
+
+    def draw_object(self, pos, color):
+        x, y = self.canvas_pos(pos)
+        pygame.draw.rect(self, color, (x, y, self.size, self.size))
+
+    def draw(self, canvas):
+        self.fill((0, 0, 0, 0))
+        if self.game_engine.show_minimap:
+            if self.game_engine.map:
+                for i in range(len(self.game_engine.map[0])): # X
+                    for j in range(len(self.game_engine.map[1])):  # Y
+                        color = self.colors["ground"]
+                        self.draw_object((i, j), color)
+
+            if self.game_engine.hero:
+                self.draw_object(self.game_engine.hero.position, self.colors["hero"])
+
+            for obj in self.game_engine.objects:
+                self.draw_object(obj.position, self.colors["object"])
+
+        super().draw(canvas)
+
+
 class ProgressBar(ScreenHandle):
 
     def __init__(self, *args, **kwargs):
@@ -173,7 +210,7 @@ class InfoWindow(ScreenHandle):
         self.fill(colors["wooden"])
         size = self.get_size()
 
-        font = pygame.font.SysFont("comicsansms", 10)
+        font = pygame.font.SysFont("comicsansms", 20)
         for i, text in enumerate(self.data):
             self.blit(font.render(text, True, colors["black"]),
                       (5, 20 + 18 * i))
