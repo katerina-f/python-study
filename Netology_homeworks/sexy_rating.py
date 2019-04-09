@@ -16,7 +16,7 @@ def main():
 
     user_input = ""
     while user_input is not 'q':
-        user_input = input('Выберите интересующий вас запрос : a - добавить имя в список, p - посмотреть рейтинг. Введите q для выхода.')
+        user_input = input('Выберите интересующий вас запрос :a - добавить имя в список, p - посмотреть рейтинг. Введите q для выхода.\n')
         if user_input == "a":
             add_document(men_list, alphabet)
         elif user_input == "p":
@@ -26,23 +26,23 @@ def main():
 
 
 def add_name(alphabet):
-    name = input('Введите имя или q, чтобы закончить')
+    name = input('Введите имя или q, чтобы закончить\n')
     for letter in list(name):
         if letter.lower() in alphabet.keys():
             continue
         else:
-            print("Введите имя используя буквы")
-            return add_name()
+            print("Введите имя используя буквы\n")
+            return add_name(alphabet)
     return name
 
 
 def add_age():
-    age = input('Введите возраст или q, чтобы закончить')
+    age = input('Введите возраст или q, чтобы закончить\n')
     try:
         age = int(age)
         return age
     except ValueError:
-        print("Введите возраст используя цифры")
+        print("Введите возраст используя цифры\n")
         return add_age()
 
 
