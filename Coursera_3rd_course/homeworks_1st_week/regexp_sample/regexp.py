@@ -9,5 +9,4 @@ def calculate(data, findall):
         else:
             data[v1] += data.get(v2, 0) + int(n or 0)
 
-
     return data
