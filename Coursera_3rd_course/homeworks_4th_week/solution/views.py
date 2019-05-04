@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import *
 # Create your views here.
-
 
 # @require_http_methods(['GET', 'POST'])
 @csrf_exempt
