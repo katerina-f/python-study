@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-@register.filter(name='inc', is_safe=True)
+@register.filter(name='inc')
 def get_sum_of_args(a,b):
     try:
         a = int(a)
