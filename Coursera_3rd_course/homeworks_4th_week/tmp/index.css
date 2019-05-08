@@ -1,5 +1,87 @@
-
-span {
+html {
+    overflow: scroll;
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+.brand {
+    font-weight: lighter;
     font-style: oblique;
-    font-size: 25px
+    font-size: 35px
+}
+b {
+    font-weight: bold;
+}
+hr {
+     width:90%;
+     margin:1em auto;
+     border:none;
+     height:2px;
+     background:#ccc;
+ }
+.side-bar {
+    margin-bottom: 30px;
+    border: 2px solid grey;
+    padding: 20px;
+   }
+aside {
+    width: 300px;
+    float: right;
+    margin: 30px;
+    margin-top: 0px;
+    padding: 10px;
+    font-family: monospace;
+}
+div.tags {
+    font-family: monospace;
+    font-size: 20px;
+    margin: 3px;
+    word-spacing: 12px;
+    line-height: 35px;
+}
+span.tag {
+    text-shadow: 1px 1px grey;
+    letter-spacing: 1px;
+}
+h1, h2, h3, h4, h5 {
+    text-align: center;
+}
+
+div.row  {
+    padding: 20px;
+    margin-bottom: 10px;
+}
+div.avatar-main {
+    height: 150px;
+    width: 150px;
+    display:block;
+    font-size: 19px;
+    text-align: center;
+}
+div.avatar {
+    height: 100px;
+    width: 100px;
+    display:block;
+    font-size: 15px;
+    text-align: center;
+}
+div.avatar, div.avatar-main {
+    padding: 20px;
+    background-color: #C0C0C0;
+}
+
+div.empty {
+    border:none;
+    height: 600px;
+}
+div.content {
+    border: 2px solid grey;
+    font-size: 15px;
+    font-family: monospace;
+}
+div.main {
+    font-size: 17px;
+    font-family: monospace;
+}
+.col-sm-7, .col-sm-2{
+    font-family: monospace;
 }
