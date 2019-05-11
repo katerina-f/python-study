@@ -1,0 +1,155 @@
+ {% load static %}
+   <!DOCTYPE html>
+  <meta charset="utf-8"/>
+  <title>
+   A Very Special Search Engine
+  </title>
+  <meta content="Van's Answers" name="description"/>
+  <meta content="ChristianV" name="author"/>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="dist/jquery.upvote.css" rel="stylesheet"/>
+  {% block styles %}{% endblock %}
+  <script src="{% static 'jquery/jquery.min.js' %}" type="text/javascript">
+  </script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}" type="text/javascript">
+  </script>
+  {% block scripts %}{% endblock %}
+  <style>
+  body{font-family:serif;}#main_image{margin-top:20px;width:85%;}a{text-decoration:underline;}#answer_input{border:solid white}h1,h2,h4{padding:5px;margin:10px;font-weight:700;}.sub{margin:20px;}.user_image{margin:5%;width:50%;border:solid;}.row{background-color:white;}
+  </style>
+ <div>
+     <div style="float:left;width:83%">
+  <nav class="navbar navbar-expand-lg">
+   <a class="navbar-brand" href="#">
+   </a>
+      <h2>Stackoverflow 2.0</h2>
+      <pre>    </pre>
+    <form class="form">
+     <input class="form" placeholder="Search" type="search"/>
+    </form>
+      </nav>
+      </div>
+     <div style="float:left;width:17%;padding:20px;"><p><a href="">login</a>  <a href="">register</a></p></div>
+
+ </div>
+
+
+  <div class="sub">
+
+
+   <div align="center" class="container-fluid" style="float:left;width:75%">
+       <div style="width:125%;"><hr/></div>
+
+    <div class="row" id="first">
+     <div class="col-2 text-left">
+      <img id="main_image" class="user_image" src="https://media.mnn.com/assets/images/2018/07/cat_eating_fancy_ice_cream.jpg.838x0_q80.jpg"/>
+         <div style="margin:5%">
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            </div>
+     </div>
+     <div class="col-8 text-left">
+         <h4>
+   What keeps the world spinning?
+  </h4>
+      <p>
+       Nam posuere magna a est dapibus fringilla. Etiam nisl enim, molestie ut sollicitudin quis, porta vitae turpis. Ut laoreet tempus efficitur. Maecenas eget elit quis mi sodales cursus et ac massa. Etiam lacus elit, lacinia vitae cursus eu, lobortis in tortor. Suspendisse consequat ligula sit amet mattis malesuada. Nam eu finibus nunc. In hac habitasse platea dictumst. Donec arcu nunc, tempor condimentum pellentesque vitae, blandit ac enim. Sed ex odio, pellentesque in dolor in, dignissim posuere sem. Nullam et sapien elit. Mauris interdum ultricies felis et finibus. Aliquam at libero ut ante vestibulum pharetra. Vivamus in tristique neque, ultrices feugiat enim. Praesent viverra risus non nunc tristique, in placerat sem mollis. Suspendisse potenti.</p><p>Tags: <a href="">doggoIpsumMaster</a> <a href="">peperoniPizza</a> <a href="">physicsWizz</a></p>
+     </div>
+    </div>
+    <div class="row" style="border:solid white">
+    </div>
+       <hr/>
+    <div class="row" style="border:solid 1px">
+     <div class="col-2 text-left">
+      <img class="user_image" src="https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"/>
+         <div style="margin:5%">
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            </div>
+     </div>
+     <div class="col-8 text-left">
+      <p>
+       Boof aqua doggo doing me a frighten woofer heck he made many woofs, ruff many pats porgo super chub. Heckin good boys aqua doggo puggorino ruff long water shoob maximum borkdrive, ruff wrinkler tungg woofer, most angery pupper I have ever seen very jealous pupper h*ck borkf. Extremely cuuuuuute ur givin me a spook shibe lotsa pats wow very biscit maximum borkdrive, adorable doggo dat tungg tho you are doing me a frighten puggorino, shoober ur givin me a spook wow very biscit snoot. very jealous pupper pats.
+      </p>
+     </div>
+    </div>
+    <div class="row" style="border:solid white">
+    </div>
+    <div class="row" style="border:solid 1px">
+     <div class="col-2 text-left">
+
+      <img class="user_image" src="https://cdn10.bigcommerce.com/s-nadnq/product_images/uploaded_images/16.jpg"/>
+         <div style="margin:5%">
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            </div>
+     </div>
+     <div class="col-8 text-left">
+      <p>
+       Doggo ipsum the neighborhood pupper adorable doggo doing me a frighten super chub pats long bois, maximum borkdrive doing me a frighten borkdrive. Long water shoob wow very biscit wrinkler boof shoober you are doing me the shock doggo ur givin me a spook bork most angery pupper I have ever seen, boof h*ck maximum borkdrive big ol pupper shibe snoot sub woofer.
+      </p>
+     </div>
+    </div>
+    <div class="row" style="border:solid white">
+    </div>
+       <hr/>
+    <div class="form-group">
+     <textarea class="form-control" id="comment" placeholder="Enter your answer here..." rows="5"></textarea>
+    </div>
+       <div class="container-fluid">
+           <div class="row">
+       <button style="box-shadow:5px 5px">Answer</button>
+               </div>
+           </div>
+   </div>
+   <div align="center" class="container-fluid" style="float:left;width:15%;margin-top:3%;">
+    <div class="col-1">
+        <h7 style="margin:15px;font-weight:900">
+      Popular_Tags
+     </h7>
+     <ul>
+      <li>
+       <a href="">beyonce</a>
+      </li>
+      <li>
+       <a href="">python</a>
+      </li>
+      <li>
+       <a href="">programming</a>
+      </li>
+      <li>
+       <a href="">hippos</a>
+      </li>
+     </ul>
+     <h7 style="margin:15px;font-weight:900">
+      Best_Members
+     </h7>
+     <ul>
+      <li>
+       <a href="">doglover97</a>
+      </li>
+      <li>
+       <a href="">pupyashenka87</a>
+      </li>
+      <li>
+       <a href="">galileo</a>
+      </li>
+      <li>
+       <a href="">hackermaster</a>
+      </li>
+     </ul>
+
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

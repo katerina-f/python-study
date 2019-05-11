@@ -1,12 +1,14 @@
+
 html {
-    overflow: scroll;
+    overflow:auto;
     text-overflow: clip;
     word-wrap: break-word;
 }
+
 .brand {
     font-weight: lighter;
     font-style: oblique;
-    font-size: 35px
+    font-size: 29px
 }
 b {
     font-weight: bold;
@@ -16,11 +18,12 @@ hr {
      margin:1em auto;
      border:none;
      height:2px;
-     background:#ccc;
+     background: silver;
  }
+
 .side-bar {
     margin-bottom: 30px;
-    border: 2px solid grey;
+    border: 2px solid silver;
     padding: 20px;
    }
 aside {
@@ -53,20 +56,18 @@ div.row  {
 div.avatar-main {
     height: 150px;
     width: 150px;
-    display:block;
     font-size: 19px;
     text-align: center;
 }
 div.avatar {
     height: 100px;
     width: 100px;
-    display:block;
     font-size: 15px;
     text-align: center;
 }
 div.avatar, div.avatar-main {
     padding: 20px;
-    background-color: #C0C0C0;
+    background-color: silver;
 }
 
 div.empty {
@@ -82,6 +83,20 @@ div.main {
     font-size: 17px;
     font-family: monospace;
 }
-.col-sm-7, .col-sm-2{
+.col-sm-7, button{
     font-family: monospace;
+}
+textarea {
+    margin-bottom: 30px;
+    font-family: monospace;
+}
+li {
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+
+.marks {
+    margin-top: 10px;
+    width: 45px
 }
