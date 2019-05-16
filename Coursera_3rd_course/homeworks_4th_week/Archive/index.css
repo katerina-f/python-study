@@ -1,0 +1,8 @@
+body {font-family:serif;}
+#main_image {width:85%;}
+a {text-decoration:underline;}
+#answer_input {border:solid white}
+h1,h2,h4 {padding:5px;margin:5px;font-weight:700;}
+.sub {margin:20px;}
+.user_image {margin:5%;width:50%;border:solid;}
+.row {background-color:white;}
