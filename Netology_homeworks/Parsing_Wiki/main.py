@@ -7,14 +7,15 @@ WIKI_LINKS = 'wiki_links.txt'
 COUNTRIES = 'countries.json'
 
 
-def main():
-    iter = WikiIter(COUNTRIES)
-    while True:
-        next(iter)
-
-    g = get_hash(WIKI_LINKS)
-    while True:
-        print(next(g))
+# def main():
+#     iter = WikiIter(COUNTRIES)
+#     while True:
+#         next(iter)
+#
+#
+#     g = get_hash(WIKI_LINKS)
+#     while True:
+#         print(next(g))
 
 
 # iterator
@@ -70,10 +71,10 @@ class WikiIter():
 
 #generator
 def get_hash(path):
-    for line in path:
+    for line in open(path, 'r'):
         line = line.encode()
         yield hashlib.md5(line).hexdigest()
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

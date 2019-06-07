@@ -19,7 +19,6 @@ def get_data():
         raw_data = f.read()
         if raw_data:
             return json.loads(raw_data)
-
         return {}
 
 
