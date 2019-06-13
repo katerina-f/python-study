@@ -18,6 +18,27 @@ def get_loggs(func):
     return wrapped
 
 
+def get_loggs_with_path(path):
+    def get_loggs(func):
+        def wrapped(*args,**kwargs):
+            time = datetime.now()
+            result = func(*args,**kwargs)
+            name = func.__name__
+            params = f'Args:{args} Kwargs{kwargs}'
+            logg = f'{time} Name: {name}, Result: {result}, {params}.\n'
+            try:
+                with open(path, 'a') as f:
+                        f.write(logg)
+            except FileNotFoundError:
+                with open(path, 'w') as f:
+                        f.write(logg)
+            return result
+        return wrapped
+    return get_loggs
+
+
+
+
 @get_loggs
 def binary_search(list, item):
     low = 0
@@ -36,6 +57,7 @@ def binary_search(list, item):
         else:
             low = mid + 1
     return None
+
 
 my_list = [11,43,20,7,29]
 print(binary_search(my_list, 20))
