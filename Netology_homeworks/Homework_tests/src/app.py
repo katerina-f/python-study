@@ -2,6 +2,13 @@
 import os
 import json
 
+current_path = str(os.path.dirname(os.path.abspath(__file__)))
+f_directories = os.path.join(current_path, 'fixtures/directories.json')
+f_documents = os.path.join(current_path, 'fixtures/documents.json')
+with open(f_documents, 'r') as out_docs:
+    documents = json.load(out_docs)
+with open(f_directories, 'r') as out_dirs:
+    directories = json.load(out_dirs)
 
 def check_document_existance(user_doc_number):
     doc_founded = False
@@ -90,6 +97,7 @@ def show_document_info(document):
     doc_number = document['number']
     doc_owner_name = document['name']
     print('{} "{}" "{}"'.format(doc_type, doc_number, doc_owner_name))
+    return '{} "{}" "{}"'.format(doc_type, doc_number, doc_owner_name)
 
 
 def show_all_docs_info():
@@ -164,12 +172,5 @@ def secretary_program_start():
 
 
 if __name__ == '__main__':
-    current_path = str(os.path.dirname(os.path.abspath(__file__)))
-    f_directories = os.path.join(current_path, 'fixtures/directories.json')
-    f_documents = os.path.join(current_path, 'fixtures/documents.json')
-    with open(f_documents, 'r') as out_docs:
-        documents = json.load(out_docs)
-    with open(f_directories, 'r') as out_dirs:
-        directories = json.load(out_dirs)
 
     secretary_program_start()
