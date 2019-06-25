@@ -1,20 +1,12 @@
-import os
-import sys
-import unittest
-from mock import patch
 import app
 import json
+from mock import patch
+import os
+import unittest
 
-# current_path = str(os.path.dirname(os.path.abspath(__file__)))
-# directories = os.path.join(current_path, 'fixtures/directories.json')
-# documents = os.path.join(current_path, 'fixtures/documents.json')
-# with open(directories, 'r+') as f:
-#     directories = json.load(f)
-# with open(documents, 'r+') as f:
-#     documents = json.load(f)
 
 class TestGettingInfo(unittest.TestCase):
-    #
+
     def setUp(self):
         current_path = str(os.path.dirname(os.path.abspath(__file__)))
         f_directories = os.path.join(current_path, 'fixtures/directories.json')
