@@ -9,6 +9,7 @@ directories = {
     '2': ['10006'],
     '3': []
 }
+
 def get_name_from_document_number():
     user_input = ""
     while  user_input is not "q":
@@ -86,5 +87,5 @@ def data_base() :
             add_document()
         elif user_input == "q":
             print("До свидания!")
-            
+
 data_base()
