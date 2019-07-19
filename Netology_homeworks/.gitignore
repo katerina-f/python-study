@@ -3,3 +3,4 @@ env
 __pycache__
 .ipynb_checkpoints
 names
+app_data.py
