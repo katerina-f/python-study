@@ -5,18 +5,19 @@ from functionality.write_to_db import add_candidate
 import psycopg2
 
 
-def search(user, count):
+def search(user, data, count):
     fields = user.fields
+
     code = '''
     var i = 0;
     var users = [];
     var offset = %d + 1000;
     while (i < 2){
-    users = users + API.users.search({"fields": "%s", "count": 1000}).items;
+    users = users + API.users.search({"city": %s, "sex": %d, "age_from": %d, "age_to": %d, "fields": "%s", "count": 1000}).items;
     i = i + 1;
     offset = offset + 1000;}
     return users;
-    ''' % (count,fields)
+    ''' % (count, data['city'], data['sex'], data['age_from'], data['age_to'], fields)
 
     result = user.vk_api.execute(code=code)
     return result
@@ -32,7 +33,7 @@ def search_matching_users(con, user_id, token):
     users = []
     count = len(start)
 
-    result = search(user, count)
+    result = search(user, data, count)
 
     for u in result:
         try:

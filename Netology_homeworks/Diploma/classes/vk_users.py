@@ -37,7 +37,6 @@ class MainUser(BaseUser):
 
     def get_data_for_search(self):
         data = self.get_user_data()
-        groups = self.vk_api.users.getSubscriptions(user_ids=self.user_id)['groups']['items']
 
         for field in data:
             if data[field]:
@@ -51,13 +50,12 @@ class MainUser(BaseUser):
             elif field == 'interests':
                 data[field] = self.config.get_interest_for_search()
 
-        data['movies'].split(",")
-        data['books'].split(",")
-        data['music'].split(",")
-        data['interests'].split(",")
+        data['movies'] = data['movies'].split(",")
+        data['books'] = data['books'].split(",")
+        data['music'] = data['music'].split(",")
+        data['interests'] = data['interests'].split(",")
         data['sex'] = self.config.get_sex_for_search()
         data['age_from'], data['age_to'] = self.config.get_age_for_search()
-        data['groups'] = groups
 
         return data
 
@@ -79,7 +77,7 @@ class MatchingUser(BaseUser):
         photos = []
         for photo in raw_photos:
             ph = {'id': photo['id'], 'likes': photo['likes']['count'],
-                    'url': photo['sizes'][1]['url']}
+                    'url': photo['sizes'][2]['url']}
             photos.append(ph)
         photos.sort(key=lambda x: x['likes'], reverse=True)
 
@@ -89,8 +87,8 @@ class MatchingUser(BaseUser):
         photos = self.get_top_3_photos()
         result = {'user': self.user_id, 'photos': photos}
         try:
-            with open('data/matching_users.json', 'a') as f:
+            with open('output_data/matching_users.json', 'a') as f:
                 json.dump(result, f, indent=4)
         except FileIsNotFound:
-            with open('matching_users.json', 'w') as f:
+            with open('output_data/matching_users.json', 'w') as f:
                 json.dump(result, f, indent=4)

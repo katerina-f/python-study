@@ -4,7 +4,9 @@ import re
 
 
 def save_matching_users(data, criteria, token):
+    print(data)
     data = filter_for_users(data, criteria)
+    print(data)
     for user in data:
         print('Добавляем подходящего пользователя...')
         matching_user = MatchingUser(user['id'], token)
@@ -36,7 +38,7 @@ def get_score_for_user(user, criteria):
 
     try:
         for i in criteria['music']:
-            result = re.findall(i, user['music'])
+            result = re.findall(i, user['music'], re.IGNORECASE)
             if result:
                 score += music
     except KeyError:
@@ -44,7 +46,7 @@ def get_score_for_user(user, criteria):
 
     try:
         for i in criteria['books']:
-            result = re.findall(i, user['books'])
+            result = re.findall(i, user['books'], re.IGNORECASE)
             if result:
                 score += book
     except KeyError:
@@ -53,7 +55,7 @@ def get_score_for_user(user, criteria):
 
     try:
         for i in criteria['interests']:
-            result = re.findall(i, user['interests'])
+            result = re.findall(i, user['interests'], re.IGNORECASE)
             if result:
                 score += interest
     except KeyError:
@@ -61,7 +63,7 @@ def get_score_for_user(user, criteria):
 
     try:
         for i in criteria['movies']:
-            result = re.findall(i, user['movies'])
+            result = re.findall(i, user['movies'], re.IGNORECASE)
             if result:
                 score += movie
     except KeyError:
