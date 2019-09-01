@@ -4,17 +4,19 @@ class BaseConfig:
 
     def __init__(self):
         self.fields = 'sex, city, country, common_count, \
-                    interests, music, movies, books, domain'
+        interests, music, movies, books, domain'
 
     def get_sex_for_search(self):
         while True:
             try:
-                sex = int(input('Кого будем искать? Выберите пол: 1 - женский, 2 - мужской, 0 - ищем оба '))
+                sex = int(input("Кого будем искать? \
+                            Выберите пол: 1 - женский, \
+                            2 - мужской, 0 - ищем оба"))
             except ValueError:
-                ('Кажется вы использовали буквы! ')
+                print('Кажется вы использовали буквы! ')
                 continue
 
-            if int(sex) not in [0,1,2]:
+            if int(sex) not in [0, 1, 2]:
                 print('Вы выбрали неверную цифру! Пожалуйста, повторите!')
             else:
                 return sex
@@ -29,8 +31,9 @@ class BaseConfig:
                 continue
 
             if age_max <= age_min:
-                print('Максимальный возраст не может быть меньше минимального, повторяем попытку!')
-            elif any((age_max<0, age_min<0)):
+                print('Максимальный возраст не может быть меньше минимального, \
+                        повторяем попытку!')
+            elif any((age_max < 0, age_min < 0)):
                 print('Возраст не может быть меньше 0!')
             else:
                 return age_min, age_max
@@ -52,5 +55,6 @@ class BaseConfig:
         return book
 
     def get_interest_for_search(self):
-        interest = input('Введите свой наибольший интерес (танцы, рисование, пение, спорт и т.д.): ')
+        interest = input('Введите свой наибольший интерес \
+         (танцы, рисование, пение, спорт и т.д.): ')
         return interest

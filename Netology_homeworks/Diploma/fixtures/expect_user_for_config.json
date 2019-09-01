@@ -1,0 +1,19 @@
+{
+    "id": 2998414,
+    "first_name": "Назар",
+    "last_name": "Вотяков",
+    "is_closed": "False",
+    "can_access_closed": "True",
+    "sex": 2,
+    "domain": "obladaet",
+    "city": 2,
+    "country": 1,
+    "common_count": 0,
+    "track_code": "e7a1ff0c1adOp2tEvVbjBOZgpyLyTfVIJDV0xfl-xxE40To3-OCyzg_zYCK-V-sL3fMbk3Eqgkw1Lw",
+    "interests": [""],
+    "music": [""],
+    "movies": ["12 Angry Men"],
+    "books": ["Достоевский"],
+    "age_from": 28,
+    "age_to": 32
+}

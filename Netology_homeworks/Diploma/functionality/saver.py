@@ -1,12 +1,10 @@
-from classes.vk_users import MatchingUser
 import time
 import re
+from classes.vk_users import MatchingUser
 
 
 def save_matching_users(data, criteria, token):
-    print(data)
     data = filter_for_users(data, criteria)
-    print(data)
     for user in data:
         print('Добавляем подходящего пользователя...')
         matching_user = MatchingUser(user['id'], token)
@@ -25,7 +23,6 @@ def filter_for_users(data, criteria):
 
 
 def get_score_for_user(user, criteria):
-    data = {'id': user['id']}
     score = 0
     common_count = 10
     music = 5
@@ -51,7 +48,6 @@ def get_score_for_user(user, criteria):
                 score += book
     except KeyError:
         pass
-
 
     try:
         for i in criteria['interests']:

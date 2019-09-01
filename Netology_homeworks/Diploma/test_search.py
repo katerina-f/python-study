@@ -1,28 +1,34 @@
-from functionality import saver
+import json
+import os
 import unittest
-from mock import patch
+from functionality import saver
 
-
-filtered_data = [{'id': 33514697, 'score': 180}, {'id': 2975227, 'score': 160}, {'id': 18607246, 'score': 112}, {'id': 3485494, 'score': 80}]
-
-data = [{"id": 3485494, "first_name": "Ольга", "last_name": "Захарьева", "is_closed": False, "can_access_closed": True, "sex": 1, "domain": "id3485494", "common_count": 8}, {"id": 33514697, "first_name": "Василий", "last_name": "Соколов", "is_closed": False, "can_access_closed": True, "sex": 2, "domain": "superchunk", "common_count": 18, "interests": "", "music": "", "movies": "", "books": ""}, {"id": 18607246, "first_name": "Ирина", "last_name": "Швецова", "is_closed": False, "can_access_closed": True, "sex": 1, "domain": "swingira", "city": {"id": 95, "title": "Нижний Новгород"}, "common_count": 11, "interests": "сальса, свинг, джаз, бачата, румба, ча-ча, танцы, линди хоп, буги вуги, чарльстон, танго, милонга, бальбоа, salsa, swing, jazz, bachata, rumba, dance, lindy hop, boogie woogie, charlestone, tango, milonga", "music": "", "movies": "", "books": ""}, {"id": 2975227, "first_name":"Ilia", "last_name": "Zinovev", "is_closed": False, "can_access_closed": True, "sex": 2, "domain": "hoasodoros", "city": {"id": 1, "title": "Москва"}, "common_count": 16}]
-
-user = {'id': 1, 'first_name': 'Павел', 'last_name': 'Дуров', 'is_closed': False, 'can_access_closed': True, 'sex': 2, 'domain': 'durov', 'city': 2, 'country': 1, 'common_count': 15, 'interests': '', 'music': '30 Seconds to Mars', 'movies': '12 Angry Men', 'books': 'Достоевский, Ахматова'}
-
-criteria = {'id': 80660212, 'first_name': 'Катерина', 'last_name': 'Фролова', 'is_closed': False, 'can_access_closed': True, 'sex': 2, 'domain': 'katerinawhite', 'city': 2, 'country': 1, 'common_count': 0, 'interests': ['dance', ' singing'], 'music': ['30 Seconds to Mars'], 'movies': ['10 негритят'], 'books': ['достоевский'], 'age_from': 28, 'age_to': 32}
 
 class TestFiltering(unittest.TestCase):
 
-    def test_return_right_score(self):
-        result = saver.get_score_for_user(user, criteria)
-        self.assertEqual(result, 158)
+    def setUp(self):
+        current_path = str(os.path.dirname(os.path.abspath(__file__)))
+        f_expect_user = os.path.join(current_path, 'fixtures/expect_user.json')
+        f_criteria = os.path.join(current_path, 'fixtures/criteria.json')
+        f_users_data = os.path.join(current_path, 'fixtures/users_data.json')
+        with open(f_expect_user, "r") as f:
+            self.expect_user = json.load(f)
+        with open(f_criteria, "r") as f:
+            self.criteria = json.load(f)
+        with open(f_users_data, "r") as f:
+            users_data = json.load(f)
+            self.filtered_data = users_data["filtered_data"]
+            self.raw_data = users_data["raw_data"]
 
+    def test_return_right_score(self):
+        result = saver.get_score_for_user(self.expect_user, self.criteria)
+        self.assertEqual(result, 103)
 
     def test_filtering_users(self):
-        result = saver.filter_for_users(data, criteria)
-        self.assertEqual(result, filtered_data)
+        result = saver.filter_for_users(self.raw_data, self.criteria)
+        self.assertEqual(result, self.filtered_data)
 
 
 if __name__ == '__main__':
-    suite_1 = unittest.TestLoader().loadTestsFromTestCase(TestFiltering)
-    unittest.TextTestRunner(verbosity=2).run(suite_1)
+    SUITE = unittest.TestLoader().loadTestsFromTestCase(TestFiltering)
+    unittest.TextTestRunner(verbosity=2).run(SUITE)

@@ -1,26 +1,54 @@
-from classes.vk_users import MainUser, MatchingUser
+import json
+import os
 import unittest
+from mock import patch, Mock
+from classes import config
+from classes import vk_users
+
 
 class TestUser(unittest.TestCase):
+    maxDiff = None
 
     def setUp(self):
-        token = input('Введите токен')
-        self.obj = MainUser('1', token)
-        self.obj_2 = MatchingUser('1', token)
+        current_path = str(os.path.dirname(os.path.abspath(__file__)))
+        f_expect_user = os.path.join(current_path, 'fixtures/expect_user.json')
+        f_raw_user = os.path.join(current_path, 'fixtures/raw_user.json')
+        f_expect_user_for_config = os.path.join(current_path,
+                                                'fixtures/expect_user_for_config.json')
+        f_criteria = os.path.join(current_path, 'fixtures/criteria.json')
+        with open(f_expect_user, "r") as f:
+            self.expect_user = json.load(f)
+        with open(f_raw_user, "r") as f:
+            self.raw_user = json.load(f)
+        with open(f_expect_user_for_config, "r") as f:
+            self.expect_user_for_config = json.load(f)
+        with open(f_criteria, "r") as f:
+            self.criteria = json.load(f)
 
+    @patch('classes.vk_users.BaseUser', autospec=True)
+    def test_return_right_user_data(self, f):
+        u = vk_users.MainUser(1, 2)
+        u.data = self.raw_user
+        result = u.get_user_data()
+        self.assertEqual(result, self.expect_user)
 
-    def test_return_right_user_data(self):
-        data = {'id': 1, 'first_name': 'Павел', 'last_name': 'Дуров', 'is_closed': False, 'can_access_closed': True, 'sex': 2, 'domain': 'durov', 'city': 2, 'country': 1, 'common_count': 0, 'interests': '', 'music': '', 'movies': '12 Angry Men', 'books': ''}
-        result = self.obj.get_user_data()
-        self.assertEqual(result, data)
-
-
-    def test_return_right_photos(self):
-        data = [{'id': 288668576, 'likes': 1459882, 'url': 'https://pp.userapi.com/c7003/v7003978/1edb/S9N9m1NFFx4.jpg'}, {'id': 263219656, 'likes': 972081, 'url': 'https://pp.userapi.com/c9591/u00001/136592355/x_dbfafe4c.jpg'}, {'id': 263219735, 'likes': 868439, 'url': 'https://pp.userapi.com/c9591/u00001/136592355/x_d51dbfac.jpg'}]
-        result = self.obj_2.get_top_3_photos()
-        self.assertEqual(len(result), len(data))
-
+    @patch('classes.vk_users.BaseUser', autospec=True)
+    @patch('classes.config.BaseConfig', autospec=True)
+    def test_return_full_data(self, f_1, f_2):
+        mock = Mock()
+        u = vk_users.MainUser(1, 2)
+        u.data = self.expect_user
+        u.fields = self.criteria
+        mock.get_sex_for_search.return_value = 2
+        mock.get_age_for_search.return_value = (28, 32)
+        mock.get_music_for_search.return_value = ''
+        mock.get_book_for_search.return_value = "Достоевский"
+        mock.get_movie_for_search.return_value = "12 Angry Men"
+        mock.get_interest_for_search.return_value = ''
+        u.config = mock
+        result = u.get_data_for_search()
+        self.assertEqual(result, self.expect_user_for_config)
 
 if __name__ == '__main__':
-    suite_1 = unittest.TestLoader().loadTestsFromTestCase(TestUser)
-    unittest.TextTestRunner(verbosity=2).run(suite_1)
+    SUITE = unittest.TestLoader().loadTestsFromTestCase(TestUser)
+    unittest.TextTestRunner(verbosity=2).run(SUITE)

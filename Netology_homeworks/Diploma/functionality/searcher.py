@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import time
+import psycopg2
 from classes.vk_users import MainUser
 from functionality.write_to_db import add_candidate
-import psycopg2
 
 
 def search(user, data, count):
@@ -39,7 +38,7 @@ def search_matching_users(con, user_id, token):
         try:
             add_candidate(u, con)
             users.append(u)
-        except psycopg2.errors.UniqueViolation:
+        except psycopg2.DatabaseError:
             pass
 
     print(f'Найдено еще {len(users)} пользователей по вашему запросу')

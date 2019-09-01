@@ -1,0 +1,18 @@
+{
+    "id": 80660212,
+    "first_name": "Катерина",
+    "last_name": "Фролова",
+    "is_closed": "False",
+    "can_access_closed": "True",
+    "sex": 2,
+    "domain": "katerinawhite",
+    "city": 2,
+    "country": 1,
+    "common_count": 0,
+    "interests": ["dance", "singing"],
+    "music": ["30 Seconds to Mars"],
+    "movies": ["10 негритят"],
+    "books": ["достоевский"],
+    "age_from": 28,
+    "age_to": 32
+}
